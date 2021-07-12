@@ -62,38 +62,35 @@ namespace TestService
         {
             string csv_file_path = "";
             string csvName = "";
-            Guid Id = new Guid();          
-            try
-            {            
-               
-               
-                var data = (from t1 in db.ImportProcesses
-                              join t2 in db.ImportFileNames on t1.FileId equals t2.Id
-                              select new { t2.FileName ,t1.FilePath,t1.OperatorId,t1.OperatotLocationId,t1.StatusId,t1.ProcessId,t1.ErrorDescription}).ToList().Where(x=>x.StatusId==1);
-            
-                foreach (var item in data)
+            Guid Id = new Guid();
+            var data = (from t1 in db.ImportProcesses
+                        join t2 in db.ImportFileNames on t1.FileId equals t2.Id
+                        select new { t2.FileName, t1.FilePath, t1.OperatorId, t1.OperatotLocationId, t1.StatusId, t1.ProcessId, t1.ErrorDescription }).ToList().Where(x => x.StatusId == 1);
+            foreach (var item in data)
+            {
+                try
                 {
                     csv_file_path = item.FilePath;
                     csvName = item.FileName;
-                    Id = item.ProcessId;                                       
+                    Id = item.ProcessId;
                     if (!string.IsNullOrEmpty(csv_file_path))
                     {
                         DataTable csvData = GetDataTabletFromCSVFile(csv_file_path);
                         InsertDataIntoSQLServerUsingSQLBulkCopy(csvData, csvName);
                         var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
-                        errorDescription.ErrorDescription = "Done";                      
+                        errorDescription.ErrorDescription = "Done";
                         db.Entry(errorDescription).State = EntityState.Modified;
-                        db.SaveChanges();                      
-
+                        db.SaveChanges();
                     }
+
                 }
-            }
-            catch (Exception ex)
-            {
-                var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
-                errorDescription.ErrorDescription =ex.Message;
-                db.Entry(errorDescription).State = EntityState.Modified;
-                db.SaveChanges();              
+                catch (Exception ex)
+                {
+                    var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
+                    errorDescription.ErrorDescription = ex.Message;
+                    db.Entry(errorDescription).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
         }
 
