@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GhostlyLiveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ImportProcess">
+    <Key>
+      <PropertyRef Name="ProcessId" />
+    </Key>
+    <Property Name="ProcessId" Type="Guid" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="OperatotLocationId" Type="Guid" />
+    <Property Name="FileFor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FilePath" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DateProcessed" Type="DateTime" Precision="0" />
+    <Property Name="ErrorDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="OperatorId" Type="Guid" />
+    <Property Name="FileId" Type="Int32" />
+    <Property Name="StatusId" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="GhostlyLiveEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ImportProcesses" EntityType="Self.ImportProcess" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GhostlyLiveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GhostlyLive.dbo.ImportProcess' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ImportProcess">
+    <Key>
+      <PropertyRef Name="ProcessId" />
+    </Key>
+    <Property Name="ProcessId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="OperatorId" Type="uniqueidentifier" />
+    <Property Name="OperatotLocationId" Type="uniqueidentifier" />
+    <Property Name="FileId" Type="int" />
+    <Property Name="FilePath" Type="nvarchar" MaxLength="400" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="DateProcessed" Type="date" />
+    <Property Name="ErrorDescription" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityContainer Name="GhostlyLiveModelStoreContainer">
+    <EntitySet Name="ImportProcess" EntityType="Self.ImportProcess" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ImportProcess].[ProcessId] AS [ProcessId], 
+    [ImportProcess].[Date] AS [Date], 
+    [ImportProcess].[OperatorId] AS [OperatorId], 
+    [ImportProcess].[OperatotLocationId] AS [OperatotLocationId], 
+    [ImportProcess].[FileId] AS [FileId], 
+    [ImportProcess].[FilePath] AS [FilePath], 
+    [ImportProcess].[StatusId] AS [StatusId], 
+    [ImportProcess].[DateProcessed] AS [DateProcessed], 
+    [ImportProcess].[ErrorDescription] AS [ErrorDescription]
+    FROM [dbo].[ImportProcess] AS [ImportProcess]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

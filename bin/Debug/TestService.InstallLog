@@ -1,0 +1,65 @@
+﻿Installing assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe
+Installing service Service1...
+Creating EventLog source Service1 in log Application...
+Rolling back assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe
+Restoring event log to previous state for source Service1.
+Installing assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe
+Installing service Service1...
+Creating EventLog source Service1 in log Application...
+Rolling back assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe
+Restoring event log to previous state for source Service1.
+Installing assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe
+Installing service Service1...
+Creating EventLog source Service1 in log Application...
+Rolling back assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe
+Restoring event log to previous state for source Service1.
+Installing assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe
+Installing service Service10...
+Service Service10 has been successfully installed.
+Creating EventLog source Service10 in log Application...
+Committing assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe
+Installing assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe
+Installing service Service15...
+Service Service15 has been successfully installed.
+Creating EventLog source Service15 in log Application...
+Committing assembly 'C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.InstallLog
+   assemblypath = C:\Users\Admin\source\repos\TestService\bin\Debug\TestService.exe

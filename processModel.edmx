@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GhostlyLiveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ImportFileName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ImportProcess">
+          <Key>
+            <PropertyRef Name="ProcessId" />
+          </Key>
+          <Property Name="ProcessId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="OperatorId" Type="uniqueidentifier" />
+          <Property Name="OperatotLocationId" Type="uniqueidentifier" />
+          <Property Name="FileId" Type="int" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="400" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="DateProcessed" Type="date" />
+          <Property Name="ErrorDescription" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="ImportStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Operators">
+          <Key>
+            <PropertyRef Name="OperatorId" />
+          </Key>
+          <Property Name="OperatorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperatorNameFirm" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorVATid" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorMainContact" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="OperatorTelephone" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorCity" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorAddressLine1" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorAddressLine2" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorCountry" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorStateOrProvince" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorRegion" Type="varchar" MaxLength="10" />
+          <Property Name="OperatorCategory" Type="int" />
+          <Property Name="OperatorSubCategory" Type="int" />
+          <Property Name="OperatorGhostlyClassification" Type="int" />
+          <Property Name="StorageCapacityLiquids" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="StorageCapacityVolume" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="StorageUsedCapacityLiquids" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="StorageUsedCapacityVolume" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="member_id" Type="uniqueidentifier" />
+          <Property Name="date_creation" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="created_by" Type="uniqueidentifier" />
+          <Property Name="modified_by" Type="uniqueidentifier" />
+          <Property Name="date_modified" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Operators_Locations">
+          <Key>
+            <PropertyRef Name="OperatorLocationId" />
+          </Key>
+          <Property Name="OperatorLocationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperatorId" Type="uniqueidentifier" />
+          <Property Name="LocationName" Type="varchar" MaxLength="128" />
+          <Property Name="LocationVATid" Type="varchar" MaxLength="50" />
+          <Property Name="LocationMainContact" Type="varchar" MaxLength="128" />
+          <Property Name="LocationEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationTelephone" Type="varchar" MaxLength="50" />
+          <Property Name="LocationCity" Type="varchar" MaxLength="128" />
+          <Property Name="LocationAddressLine1" Type="varchar" MaxLength="128" />
+          <Property Name="LocationAddressLine2" Type="varchar" MaxLength="128" />
+          <Property Name="LocationZIP" Type="varchar" MaxLength="15" />
+          <Property Name="LocationCountry" Type="varchar" MaxLength="50" />
+          <Property Name="LocationStateOrProvince" Type="varchar" MaxLength="50" />
+          <Property Name="LocationRegion" Type="varchar" MaxLength="10" />
+          <Property Name="LocationCategory" Type="int" />
+          <Property Name="LocationSubCategory" Type="int" />
+          <Property Name="LocationGhostlyClassification" Type="int" />
+          <Property Name="LocationStorageCapacityLiquids" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LocationStorageCapacityVolume" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LocationStorageUsedCapacityLiquids" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LocationStorageUsedCapacityVolume" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="date_creation" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="created_by" Type="uniqueidentifier" />
+          <Property Name="modified_by" Type="uniqueidentifier" />
+          <Property Name="date_modified" Type="datetime2" Precision="7" />
+        </EntityType>
+        <Association Name="FK__ImportPro__FileI__6DEC4894">
+          <End Role="ImportFileName" Type="Self.ImportFileName" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportFileName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__6C040022">
+          <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__6CF8245B">
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators_Locations">
+              <PropertyRef Name="OperatorLocationId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatotLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Statu__6EE06CCD">
+          <End Role="ImportStatus" Type="Self.ImportStatus" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operators_Locations_Operators_OperatorId">
+          <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
+            </Principal>
+            <Dependent Role="Operators_Locations">
+              <PropertyRef Name="OperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GhostlyLiveModelStoreContainer">
+          <EntitySet Name="ImportFileName" EntityType="Self.ImportFileName" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportProcess" EntityType="Self.ImportProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportStatus" EntityType="Self.ImportStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operators" EntityType="Self.Operators" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operators_Locations" EntityType="Self.Operators_Locations" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ImportPro__FileI__6DEC4894" Association="Self.FK__ImportPro__FileI__6DEC4894">
+            <End Role="ImportFileName" EntitySet="ImportFileName" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__6C040022" Association="Self.FK__ImportPro__Opera__6C040022">
+            <End Role="Operators" EntitySet="Operators" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__6CF8245B" Association="Self.FK__ImportPro__Opera__6CF8245B">
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Statu__6EE06CCD" Association="Self.FK__ImportPro__Statu__6EE06CCD">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operators_Locations_Operators_OperatorId" Association="Self.FK_Operators_Locations_Operators_OperatorId">
+            <End Role="Operators" EntitySet="Operators" />
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GhostlyLiveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ImportFileName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__FileI__6DEC4894" FromRole="ImportFileName" ToRole="ImportProcess" />
+        </EntityType>
+        <EntityType Name="ImportProcess">
+          <Key>
+            <PropertyRef Name="ProcessId" />
+          </Key>
+          <Property Name="ProcessId" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="OperatorId" Type="Guid" />
+          <Property Name="OperatotLocationId" Type="Guid" />
+          <Property Name="FileId" Type="Int32" />
+          <Property Name="FilePath" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="DateProcessed" Type="DateTime" Precision="0" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ImportFileName" Relationship="Self.FK__ImportPro__FileI__6DEC4894" FromRole="ImportProcess" ToRole="ImportFileName" />
+          <NavigationProperty Name="Operator" Relationship="Self.FK__ImportPro__Opera__6C040022" FromRole="ImportProcess" ToRole="Operators" />
+          <NavigationProperty Name="Operators_Locations" Relationship="Self.FK__ImportPro__Opera__6CF8245B" FromRole="ImportProcess" ToRole="Operators_Locations" />
+          <NavigationProperty Name="ImportStatu" Relationship="Self.FK__ImportPro__Statu__6EE06CCD" FromRole="ImportProcess" ToRole="ImportStatus" />
+        </EntityType>
+        <EntityType Name="ImportStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__Statu__6EE06CCD" FromRole="ImportStatus" ToRole="ImportProcess" />
+        </EntityType>
+        <EntityType Name="Operator">
+          <Key>
+            <PropertyRef Name="OperatorId" />
+          </Key>
+          <Property Name="OperatorId" Type="Guid" Nullable="false" />
+          <Property Name="OperatorNameFirm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorVATid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorMainContact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OperatorTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorAddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorAddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorStateOrProvince" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorRegion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorCategory" Type="Int32" />
+          <Property Name="OperatorSubCategory" Type="Int32" />
+          <Property Name="OperatorGhostlyClassification" Type="Int32" />
+          <Property Name="StorageCapacityLiquids" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="StorageCapacityVolume" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="StorageUsedCapacityLiquids" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="StorageUsedCapacityVolume" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="member_id" Type="Guid" />
+          <Property Name="date_creation" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="created_by" Type="Guid" />
+          <Property Name="modified_by" Type="Guid" />
+          <Property Name="date_modified" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__Opera__6C040022" FromRole="Operators" ToRole="ImportProcess" />
+          <NavigationProperty Name="Operators_Locations" Relationship="Self.FK_Operators_Locations_Operators_OperatorId" FromRole="Operators" ToRole="Operators_Locations" />
+        </EntityType>
+        <EntityType Name="Operators_Locations">
+          <Key>
+            <PropertyRef Name="OperatorLocationId" />
+          </Key>
+          <Property Name="OperatorLocationId" Type="Guid" Nullable="false" />
+          <Property Name="OperatorId" Type="Guid" />
+          <Property Name="LocationName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="LocationVATid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocationMainContact" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="LocationEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocationCity" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="LocationAddressLine1" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="LocationAddressLine2" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="LocationZIP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LocationCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocationStateOrProvince" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocationRegion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LocationCategory" Type="Int32" />
+          <Property Name="LocationSubCategory" Type="Int32" />
+          <Property Name="LocationGhostlyClassification" Type="Int32" />
+          <Property Name="LocationStorageCapacityLiquids" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LocationStorageCapacityVolume" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LocationStorageUsedCapacityLiquids" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LocationStorageUsedCapacityVolume" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="date_creation" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="created_by" Type="Guid" />
+          <Property Name="modified_by" Type="Guid" />
+          <Property Name="date_modified" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__Opera__6CF8245B" FromRole="Operators_Locations" ToRole="ImportProcess" />
+          <NavigationProperty Name="Operator" Relationship="Self.FK_Operators_Locations_Operators_OperatorId" FromRole="Operators_Locations" ToRole="Operators" />
+        </EntityType>
+        <Association Name="FK__ImportPro__FileI__6DEC4894">
+          <End Role="ImportFileName" Type="Self.ImportFileName" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportFileName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__6C040022">
+          <End Role="Operators" Type="Self.Operator" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__6CF8245B">
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators_Locations">
+              <PropertyRef Name="OperatorLocationId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatotLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Statu__6EE06CCD">
+          <End Role="ImportStatus" Type="Self.ImportStatu" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operators_Locations_Operators_OperatorId">
+          <End Role="Operators" Type="Self.Operator" Multiplicity="0..1" />
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
+            </Principal>
+            <Dependent Role="Operators_Locations">
+              <PropertyRef Name="OperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GhostlyLiveEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ImportFileNames" EntityType="Self.ImportFileName" />
+          <EntitySet Name="ImportProcesses" EntityType="Self.ImportProcess" />
+          <EntitySet Name="ImportStatus" EntityType="Self.ImportStatu" />
+          <EntitySet Name="Operators" EntityType="Self.Operator" />
+          <EntitySet Name="Operators_Locations" EntityType="Self.Operators_Locations" />
+          <AssociationSet Name="FK__ImportPro__FileI__6DEC4894" Association="Self.FK__ImportPro__FileI__6DEC4894">
+            <End Role="ImportFileName" EntitySet="ImportFileNames" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__6C040022" Association="Self.FK__ImportPro__Opera__6C040022">
+            <End Role="Operators" EntitySet="Operators" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__6CF8245B" Association="Self.FK__ImportPro__Opera__6CF8245B">
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Statu__6EE06CCD" Association="Self.FK__ImportPro__Statu__6EE06CCD">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operators_Locations_Operators_OperatorId" Association="Self.FK_Operators_Locations_Operators_OperatorId">
+            <End Role="Operators" EntitySet="Operators" />
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GhostlyLiveModelStoreContainer" CdmEntityContainer="GhostlyLiveEntities2">
+          <EntitySetMapping Name="ImportFileNames">
+            <EntityTypeMapping TypeName="GhostlyLiveModel.ImportFileName">
+              <MappingFragment StoreEntitySet="ImportFileName">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportProcesses">
+            <EntityTypeMapping TypeName="GhostlyLiveModel.ImportProcess">
+              <MappingFragment StoreEntitySet="ImportProcess">
+                <ScalarProperty Name="ProcessId" ColumnName="ProcessId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="OperatotLocationId" ColumnName="OperatotLocationId" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="DateProcessed" ColumnName="DateProcessed" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportStatus">
+            <EntityTypeMapping TypeName="GhostlyLiveModel.ImportStatu">
+              <MappingFragment StoreEntitySet="ImportStatus">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operators">
+            <EntityTypeMapping TypeName="GhostlyLiveModel.Operator">
+              <MappingFragment StoreEntitySet="Operators">
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="OperatorNameFirm" ColumnName="OperatorNameFirm" />
+                <ScalarProperty Name="OperatorVATid" ColumnName="OperatorVATid" />
+                <ScalarProperty Name="OperatorMainContact" ColumnName="OperatorMainContact" />
+                <ScalarProperty Name="OperatorEmail" ColumnName="OperatorEmail" />
+                <ScalarProperty Name="OperatorTelephone" ColumnName="OperatorTelephone" />
+                <ScalarProperty Name="OperatorCity" ColumnName="OperatorCity" />
+                <ScalarProperty Name="OperatorAddressLine1" ColumnName="OperatorAddressLine1" />
+                <ScalarProperty Name="OperatorAddressLine2" ColumnName="OperatorAddressLine2" />
+                <ScalarProperty Name="OperatorCountry" ColumnName="OperatorCountry" />
+                <ScalarProperty Name="OperatorStateOrProvince" ColumnName="OperatorStateOrProvince" />
+                <ScalarProperty Name="OperatorRegion" ColumnName="OperatorRegion" />
+                <ScalarProperty Name="OperatorCategory" ColumnName="OperatorCategory" />
+                <ScalarProperty Name="OperatorSubCategory" ColumnName="OperatorSubCategory" />
+                <ScalarProperty Name="OperatorGhostlyClassification" ColumnName="OperatorGhostlyClassification" />
+                <ScalarProperty Name="StorageCapacityLiquids" ColumnName="StorageCapacityLiquids" />
+                <ScalarProperty Name="StorageCapacityVolume" ColumnName="StorageCapacityVolume" />
+                <ScalarProperty Name="StorageUsedCapacityLiquids" ColumnName="StorageUsedCapacityLiquids" />
+                <ScalarProperty Name="StorageUsedCapacityVolume" ColumnName="StorageUsedCapacityVolume" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="date_creation" ColumnName="date_creation" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operators_Locations">
+            <EntityTypeMapping TypeName="GhostlyLiveModel.Operators_Locations">
+              <MappingFragment StoreEntitySet="Operators_Locations">
+                <ScalarProperty Name="OperatorLocationId" ColumnName="OperatorLocationId" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="LocationVATid" ColumnName="LocationVATid" />
+                <ScalarProperty Name="LocationMainContact" ColumnName="LocationMainContact" />
+                <ScalarProperty Name="LocationEmail" ColumnName="LocationEmail" />
+                <ScalarProperty Name="LocationTelephone" ColumnName="LocationTelephone" />
+                <ScalarProperty Name="LocationCity" ColumnName="LocationCity" />
+                <ScalarProperty Name="LocationAddressLine1" ColumnName="LocationAddressLine1" />
+                <ScalarProperty Name="LocationAddressLine2" ColumnName="LocationAddressLine2" />
+                <ScalarProperty Name="LocationZIP" ColumnName="LocationZIP" />
+                <ScalarProperty Name="LocationCountry" ColumnName="LocationCountry" />
+                <ScalarProperty Name="LocationStateOrProvince" ColumnName="LocationStateOrProvince" />
+                <ScalarProperty Name="LocationRegion" ColumnName="LocationRegion" />
+                <ScalarProperty Name="LocationCategory" ColumnName="LocationCategory" />
+                <ScalarProperty Name="LocationSubCategory" ColumnName="LocationSubCategory" />
+                <ScalarProperty Name="LocationGhostlyClassification" ColumnName="LocationGhostlyClassification" />
+                <ScalarProperty Name="LocationStorageCapacityLiquids" ColumnName="LocationStorageCapacityLiquids" />
+                <ScalarProperty Name="LocationStorageCapacityVolume" ColumnName="LocationStorageCapacityVolume" />
+                <ScalarProperty Name="LocationStorageUsedCapacityLiquids" ColumnName="LocationStorageUsedCapacityLiquids" />
+                <ScalarProperty Name="LocationStorageUsedCapacityVolume" ColumnName="LocationStorageUsedCapacityVolume" />
+                <ScalarProperty Name="date_creation" ColumnName="date_creation" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

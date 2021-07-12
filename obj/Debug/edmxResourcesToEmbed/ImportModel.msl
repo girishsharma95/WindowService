@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GhostlyLiveModelStoreContainer" CdmEntityContainer="GhostlyLiveEntities">
+    <EntitySetMapping Name="ImportProcesses">
+      <EntityTypeMapping TypeName="GhostlyLiveModel.ImportProcess">
+        <MappingFragment StoreEntitySet="ImportProcess">
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+          <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+          <ScalarProperty Name="ProcessId" ColumnName="ProcessId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="OperatotLocationId" ColumnName="OperatotLocationId" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="DateProcessed" ColumnName="DateProcessed" />
+          <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
