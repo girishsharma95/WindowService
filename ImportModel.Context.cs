@@ -13,10 +13,10 @@ namespace TestService
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GhostlyLiveEntities2 : DbContext
+    public partial class GhostlyLiveEntities : DbContext
     {
-        public GhostlyLiveEntities2()
-            : base("name=GhostlyLiveEntities2")
+        public GhostlyLiveEntities()
+            : base("name=GhostlyLiveEntities")
         {
         }
     
@@ -25,7 +25,6 @@ namespace TestService
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ImportFileName> ImportFileNames { get; set; }
         public virtual DbSet<ImportProcess> ImportProcesses { get; set; }
         public virtual DbSet<ImportStatu> ImportStatus { get; set; }
         public virtual DbSet<Operator> Operators { get; set; }

@@ -5,13 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="GhostlyLiveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="ImportFileName">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileName" Type="varchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="ImportProcess">
           <Key>
             <PropertyRef Name="ProcessId" />
@@ -20,18 +13,18 @@
           <Property Name="Date" Type="date" />
           <Property Name="OperatorId" Type="uniqueidentifier" />
           <Property Name="OperatotLocationId" Type="uniqueidentifier" />
-          <Property Name="FileId" Type="int" />
+          <Property Name="FileTypeId" Type="uniqueidentifier" />
           <Property Name="FilePath" Type="nvarchar" MaxLength="400" />
-          <Property Name="StatusId" Type="int" />
+          <Property Name="FileStatusId" Type="uniqueidentifier" />
           <Property Name="DateProcessed" Type="date" />
           <Property Name="ErrorDescription" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="ImportStatus">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Operators">
           <Key>
@@ -92,19 +85,55 @@
           <Property Name="modified_by" Type="uniqueidentifier" />
           <Property Name="date_modified" Type="datetime2" Precision="7" />
         </EntityType>
-        <Association Name="FK__ImportPro__FileI__6DEC4894">
-          <End Role="ImportFileName" Type="Self.ImportFileName" Multiplicity="0..1" />
+        <Association Name="FK__ImportPro__FileS__2A01329B">
+          <End Role="ImportStatus" Type="Self.ImportStatus" Multiplicity="0..1" />
           <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ImportFileName">
-              <PropertyRef Name="Id" />
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="ImportProcess">
-              <PropertyRef Name="FileId" />
+              <PropertyRef Name="FileStatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImportPro__Opera__6C040022">
+        <Association Name="FK__ImportPro__FileS__2AF556D4">
+          <End Role="ImportStatus" Type="Self.ImportStatus" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="FileStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__FileS__30AE302A">
+          <End Role="ImportStatus" Type="Self.ImportStatus" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="FileStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__FileS__347EC10E">
+          <End Role="ImportStatus" Type="Self.ImportStatus" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="FileStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__2724C5F0">
           <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
           <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
           <ReferentialConstraint>
@@ -116,7 +145,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImportPro__Opera__6CF8245B">
+        <Association Name="FK__ImportPro__Opera__2818EA29">
           <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
           <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
           <ReferentialConstraint>
@@ -128,15 +157,75 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImportPro__Statu__6EE06CCD">
-          <End Role="ImportStatus" Type="Self.ImportStatus" Multiplicity="0..1" />
+        <Association Name="FK__ImportPro__Opera__2CDD9F46">
+          <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
           <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ImportStatus">
-              <PropertyRef Name="Id" />
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
             </Principal>
             <Dependent Role="ImportProcess">
-              <PropertyRef Name="StatusId" />
+              <PropertyRef Name="OperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__2DD1C37F">
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators_Locations">
+              <PropertyRef Name="OperatorLocationId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatotLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__3296789C">
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators_Locations">
+              <PropertyRef Name="OperatorLocationId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatotLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__338A9CD5">
+          <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__36670980">
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators_Locations">
+              <PropertyRef Name="OperatorLocationId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatotLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__375B2DB9">
+          <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -153,25 +242,56 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="GhostlyLiveModelStoreContainer">
-          <EntitySet Name="ImportFileName" EntityType="Self.ImportFileName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImportProcess" EntityType="Self.ImportProcess" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImportStatus" EntityType="Self.ImportStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operators" EntityType="Self.Operators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operators_Locations" EntityType="Self.Operators_Locations" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ImportPro__FileI__6DEC4894" Association="Self.FK__ImportPro__FileI__6DEC4894">
-            <End Role="ImportFileName" EntitySet="ImportFileName" />
+          <AssociationSet Name="FK__ImportPro__FileS__2A01329B" Association="Self.FK__ImportPro__FileS__2A01329B">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
             <End Role="ImportProcess" EntitySet="ImportProcess" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImportPro__Opera__6C040022" Association="Self.FK__ImportPro__Opera__6C040022">
+          <AssociationSet Name="FK__ImportPro__FileS__2AF556D4" Association="Self.FK__ImportPro__FileS__2AF556D4">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__FileS__30AE302A" Association="Self.FK__ImportPro__FileS__30AE302A">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__FileS__347EC10E" Association="Self.FK__ImportPro__FileS__347EC10E">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__2724C5F0" Association="Self.FK__ImportPro__Opera__2724C5F0">
             <End Role="Operators" EntitySet="Operators" />
             <End Role="ImportProcess" EntitySet="ImportProcess" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImportPro__Opera__6CF8245B" Association="Self.FK__ImportPro__Opera__6CF8245B">
+          <AssociationSet Name="FK__ImportPro__Opera__2818EA29" Association="Self.FK__ImportPro__Opera__2818EA29">
             <End Role="Operators_Locations" EntitySet="Operators_Locations" />
             <End Role="ImportProcess" EntitySet="ImportProcess" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImportPro__Statu__6EE06CCD" Association="Self.FK__ImportPro__Statu__6EE06CCD">
-            <End Role="ImportStatus" EntitySet="ImportStatus" />
+          <AssociationSet Name="FK__ImportPro__Opera__2CDD9F46" Association="Self.FK__ImportPro__Opera__2CDD9F46">
+            <End Role="Operators" EntitySet="Operators" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__2DD1C37F" Association="Self.FK__ImportPro__Opera__2DD1C37F">
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__3296789C" Association="Self.FK__ImportPro__Opera__3296789C">
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__338A9CD5" Association="Self.FK__ImportPro__Opera__338A9CD5">
+            <End Role="Operators" EntitySet="Operators" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__36670980" Association="Self.FK__ImportPro__Opera__36670980">
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+            <End Role="ImportProcess" EntitySet="ImportProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__375B2DB9" Association="Self.FK__ImportPro__Opera__375B2DB9">
+            <End Role="Operators" EntitySet="Operators" />
             <End Role="ImportProcess" EntitySet="ImportProcess" />
           </AssociationSet>
           <AssociationSet Name="FK_Operators_Locations_Operators_OperatorId" Association="Self.FK_Operators_Locations_Operators_OperatorId">
@@ -184,14 +304,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GhostlyLiveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ImportFileName">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__FileI__6DEC4894" FromRole="ImportFileName" ToRole="ImportProcess" />
-        </EntityType>
         <EntityType Name="ImportProcess">
           <Key>
             <PropertyRef Name="ProcessId" />
@@ -200,23 +312,34 @@
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="OperatorId" Type="Guid" />
           <Property Name="OperatotLocationId" Type="Guid" />
-          <Property Name="FileId" Type="Int32" />
+          <Property Name="FileTypeId" Type="Guid" />
           <Property Name="FilePath" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
-          <Property Name="StatusId" Type="Int32" />
+          <Property Name="FileStatusId" Type="Guid" />
           <Property Name="DateProcessed" Type="DateTime" Precision="0" />
           <Property Name="ErrorDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ImportFileName" Relationship="Self.FK__ImportPro__FileI__6DEC4894" FromRole="ImportProcess" ToRole="ImportFileName" />
-          <NavigationProperty Name="Operator" Relationship="Self.FK__ImportPro__Opera__6C040022" FromRole="ImportProcess" ToRole="Operators" />
-          <NavigationProperty Name="Operators_Locations" Relationship="Self.FK__ImportPro__Opera__6CF8245B" FromRole="ImportProcess" ToRole="Operators_Locations" />
-          <NavigationProperty Name="ImportStatu" Relationship="Self.FK__ImportPro__Statu__6EE06CCD" FromRole="ImportProcess" ToRole="ImportStatus" />
+          <NavigationProperty Name="ImportStatu" Relationship="Self.FK__ImportPro__FileS__2A01329B" FromRole="ImportProcess" ToRole="ImportStatus" />
+          <NavigationProperty Name="ImportStatu1" Relationship="Self.FK__ImportPro__FileS__2AF556D4" FromRole="ImportProcess" ToRole="ImportStatus" />
+          <NavigationProperty Name="ImportStatu2" Relationship="Self.FK__ImportPro__FileS__30AE302A" FromRole="ImportProcess" ToRole="ImportStatus" />
+          <NavigationProperty Name="ImportStatu3" Relationship="Self.FK__ImportPro__FileS__347EC10E" FromRole="ImportProcess" ToRole="ImportStatus" />
+          <NavigationProperty Name="Operator" Relationship="Self.FK__ImportPro__Opera__2724C5F0" FromRole="ImportProcess" ToRole="Operators" />
+          <NavigationProperty Name="Operators_Locations" Relationship="Self.FK__ImportPro__Opera__2818EA29" FromRole="ImportProcess" ToRole="Operators_Locations" />
+          <NavigationProperty Name="Operator1" Relationship="Self.FK__ImportPro__Opera__2CDD9F46" FromRole="ImportProcess" ToRole="Operators" />
+          <NavigationProperty Name="Operators_Locations1" Relationship="Self.FK__ImportPro__Opera__2DD1C37F" FromRole="ImportProcess" ToRole="Operators_Locations" />
+          <NavigationProperty Name="Operators_Locations2" Relationship="Self.FK__ImportPro__Opera__3296789C" FromRole="ImportProcess" ToRole="Operators_Locations" />
+          <NavigationProperty Name="Operator2" Relationship="Self.FK__ImportPro__Opera__338A9CD5" FromRole="ImportProcess" ToRole="Operators" />
+          <NavigationProperty Name="Operators_Locations3" Relationship="Self.FK__ImportPro__Opera__36670980" FromRole="ImportProcess" ToRole="Operators_Locations" />
+          <NavigationProperty Name="Operator3" Relationship="Self.FK__ImportPro__Opera__375B2DB9" FromRole="ImportProcess" ToRole="Operators" />
         </EntityType>
         <EntityType Name="ImportStatu">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__Statu__6EE06CCD" FromRole="ImportStatus" ToRole="ImportProcess" />
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__FileS__2A01329B" FromRole="ImportStatus" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses1" Relationship="Self.FK__ImportPro__FileS__2AF556D4" FromRole="ImportStatus" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses2" Relationship="Self.FK__ImportPro__FileS__30AE302A" FromRole="ImportStatus" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses3" Relationship="Self.FK__ImportPro__FileS__347EC10E" FromRole="ImportStatus" ToRole="ImportProcess" />
         </EntityType>
         <EntityType Name="Operator">
           <Key>
@@ -246,7 +369,10 @@
           <Property Name="created_by" Type="Guid" />
           <Property Name="modified_by" Type="Guid" />
           <Property Name="date_modified" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__Opera__6C040022" FromRole="Operators" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__Opera__2724C5F0" FromRole="Operators" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses1" Relationship="Self.FK__ImportPro__Opera__2CDD9F46" FromRole="Operators" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses2" Relationship="Self.FK__ImportPro__Opera__338A9CD5" FromRole="Operators" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses3" Relationship="Self.FK__ImportPro__Opera__375B2DB9" FromRole="Operators" ToRole="ImportProcess" />
           <NavigationProperty Name="Operators_Locations" Relationship="Self.FK_Operators_Locations_Operators_OperatorId" FromRole="Operators" ToRole="Operators_Locations" />
         </EntityType>
         <EntityType Name="Operators_Locations">
@@ -278,22 +404,61 @@
           <Property Name="created_by" Type="Guid" />
           <Property Name="modified_by" Type="Guid" />
           <Property Name="date_modified" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__Opera__6CF8245B" FromRole="Operators_Locations" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses" Relationship="Self.FK__ImportPro__Opera__2818EA29" FromRole="Operators_Locations" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses1" Relationship="Self.FK__ImportPro__Opera__2DD1C37F" FromRole="Operators_Locations" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses2" Relationship="Self.FK__ImportPro__Opera__3296789C" FromRole="Operators_Locations" ToRole="ImportProcess" />
+          <NavigationProperty Name="ImportProcesses3" Relationship="Self.FK__ImportPro__Opera__36670980" FromRole="Operators_Locations" ToRole="ImportProcess" />
           <NavigationProperty Name="Operator" Relationship="Self.FK_Operators_Locations_Operators_OperatorId" FromRole="Operators_Locations" ToRole="Operators" />
         </EntityType>
-        <Association Name="FK__ImportPro__FileI__6DEC4894">
-          <End Role="ImportFileName" Type="Self.ImportFileName" Multiplicity="0..1" />
+        <Association Name="FK__ImportPro__FileS__2A01329B">
+          <End Role="ImportStatus" Type="Self.ImportStatu" Multiplicity="0..1" />
           <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ImportFileName">
-              <PropertyRef Name="Id" />
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="ImportProcess">
-              <PropertyRef Name="FileId" />
+              <PropertyRef Name="FileStatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImportPro__Opera__6C040022">
+        <Association Name="FK__ImportPro__FileS__2AF556D4">
+          <End Role="ImportStatus" Type="Self.ImportStatu" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="FileStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__FileS__30AE302A">
+          <End Role="ImportStatus" Type="Self.ImportStatu" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="FileStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__FileS__347EC10E">
+          <End Role="ImportStatus" Type="Self.ImportStatu" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="FileStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__2724C5F0">
           <End Role="Operators" Type="Self.Operator" Multiplicity="0..1" />
           <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
           <ReferentialConstraint>
@@ -305,7 +470,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImportPro__Opera__6CF8245B">
+        <Association Name="FK__ImportPro__Opera__2818EA29">
           <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
           <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
           <ReferentialConstraint>
@@ -317,15 +482,75 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImportPro__Statu__6EE06CCD">
-          <End Role="ImportStatus" Type="Self.ImportStatu" Multiplicity="0..1" />
+        <Association Name="FK__ImportPro__Opera__2CDD9F46">
+          <End Role="Operators" Type="Self.Operator" Multiplicity="0..1" />
           <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ImportStatus">
-              <PropertyRef Name="Id" />
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
             </Principal>
             <Dependent Role="ImportProcess">
-              <PropertyRef Name="StatusId" />
+              <PropertyRef Name="OperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__2DD1C37F">
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators_Locations">
+              <PropertyRef Name="OperatorLocationId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatotLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__3296789C">
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators_Locations">
+              <PropertyRef Name="OperatorLocationId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatotLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__338A9CD5">
+          <End Role="Operators" Type="Self.Operator" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__36670980">
+          <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators_Locations">
+              <PropertyRef Name="OperatorLocationId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatotLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportPro__Opera__375B2DB9">
+          <End Role="Operators" Type="Self.Operator" Multiplicity="0..1" />
+          <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators">
+              <PropertyRef Name="OperatorId" />
+            </Principal>
+            <Dependent Role="ImportProcess">
+              <PropertyRef Name="OperatorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -341,26 +566,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GhostlyLiveEntities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ImportFileNames" EntityType="Self.ImportFileName" />
+        <EntityContainer Name="GhostlyLiveEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ImportProcesses" EntityType="Self.ImportProcess" />
           <EntitySet Name="ImportStatus" EntityType="Self.ImportStatu" />
           <EntitySet Name="Operators" EntityType="Self.Operator" />
           <EntitySet Name="Operators_Locations" EntityType="Self.Operators_Locations" />
-          <AssociationSet Name="FK__ImportPro__FileI__6DEC4894" Association="Self.FK__ImportPro__FileI__6DEC4894">
-            <End Role="ImportFileName" EntitySet="ImportFileNames" />
+          <AssociationSet Name="FK__ImportPro__FileS__2A01329B" Association="Self.FK__ImportPro__FileS__2A01329B">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
             <End Role="ImportProcess" EntitySet="ImportProcesses" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImportPro__Opera__6C040022" Association="Self.FK__ImportPro__Opera__6C040022">
+          <AssociationSet Name="FK__ImportPro__FileS__2AF556D4" Association="Self.FK__ImportPro__FileS__2AF556D4">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__FileS__30AE302A" Association="Self.FK__ImportPro__FileS__30AE302A">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__FileS__347EC10E" Association="Self.FK__ImportPro__FileS__347EC10E">
+            <End Role="ImportStatus" EntitySet="ImportStatus" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__2724C5F0" Association="Self.FK__ImportPro__Opera__2724C5F0">
             <End Role="Operators" EntitySet="Operators" />
             <End Role="ImportProcess" EntitySet="ImportProcesses" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImportPro__Opera__6CF8245B" Association="Self.FK__ImportPro__Opera__6CF8245B">
+          <AssociationSet Name="FK__ImportPro__Opera__2818EA29" Association="Self.FK__ImportPro__Opera__2818EA29">
             <End Role="Operators_Locations" EntitySet="Operators_Locations" />
             <End Role="ImportProcess" EntitySet="ImportProcesses" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImportPro__Statu__6EE06CCD" Association="Self.FK__ImportPro__Statu__6EE06CCD">
-            <End Role="ImportStatus" EntitySet="ImportStatus" />
+          <AssociationSet Name="FK__ImportPro__Opera__2CDD9F46" Association="Self.FK__ImportPro__Opera__2CDD9F46">
+            <End Role="Operators" EntitySet="Operators" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__2DD1C37F" Association="Self.FK__ImportPro__Opera__2DD1C37F">
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__3296789C" Association="Self.FK__ImportPro__Opera__3296789C">
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__338A9CD5" Association="Self.FK__ImportPro__Opera__338A9CD5">
+            <End Role="Operators" EntitySet="Operators" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__36670980" Association="Self.FK__ImportPro__Opera__36670980">
+            <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+            <End Role="ImportProcess" EntitySet="ImportProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportPro__Opera__375B2DB9" Association="Self.FK__ImportPro__Opera__375B2DB9">
+            <End Role="Operators" EntitySet="Operators" />
             <End Role="ImportProcess" EntitySet="ImportProcesses" />
           </AssociationSet>
           <AssociationSet Name="FK_Operators_Locations_Operators_OperatorId" Association="Self.FK_Operators_Locations_Operators_OperatorId">
@@ -373,15 +629,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GhostlyLiveModelStoreContainer" CdmEntityContainer="GhostlyLiveEntities2">
-          <EntitySetMapping Name="ImportFileNames">
-            <EntityTypeMapping TypeName="GhostlyLiveModel.ImportFileName">
-              <MappingFragment StoreEntitySet="ImportFileName">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="GhostlyLiveModelStoreContainer" CdmEntityContainer="GhostlyLiveEntities">
           <EntitySetMapping Name="ImportProcesses">
             <EntityTypeMapping TypeName="GhostlyLiveModel.ImportProcess">
               <MappingFragment StoreEntitySet="ImportProcess">
@@ -389,9 +637,9 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
                 <ScalarProperty Name="OperatotLocationId" ColumnName="OperatotLocationId" />
-                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
                 <ScalarProperty Name="FilePath" ColumnName="FilePath" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="FileStatusId" ColumnName="FileStatusId" />
                 <ScalarProperty Name="DateProcessed" ColumnName="DateProcessed" />
                 <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
               </MappingFragment>
@@ -400,8 +648,8 @@
           <EntitySetMapping Name="ImportStatus">
             <EntityTypeMapping TypeName="GhostlyLiveModel.ImportStatu">
               <MappingFragment StoreEntitySet="ImportStatus">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

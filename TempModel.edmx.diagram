@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7a63eaece6fe4c5c8282c5e690788a6d" Name="Diagram1">
+        <EntityTypeShape EntityType="GhostlyLiveModel.ImportFileType" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GhostlyLiveModel.ImportProcess" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="GhostlyLiveModel.ImportStatu" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GhostlyLiveModel.Operator" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GhostlyLiveModel.Operators_Locations" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__FileT__59B045BD" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__FileS__5AA469F6" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__57C7FD4B" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__58BC2184" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK_Operators_Locations_Operators_OperatorId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

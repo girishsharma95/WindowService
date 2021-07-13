@@ -22,16 +22,17 @@ namespace TestService
     {
         System.Threading.Timer threadTimer;
         private static string conn  = ConfigurationManager.ConnectionStrings["conn"].ConnectionString;
-        private static GhostlyLiveEntities2 db = new GhostlyLiveEntities2();
+        GhostlyLiveEntities db = new GhostlyLiveEntities();
+        //private static CSVProcess db = new CSVProcess();
       
         public Service1()
         {
             InitializeComponent();
         }
-        //public void OnDebug()
-        //{
-        //    OnStart(null);
-        //}
+        public void OnDebug()
+        {
+            OnStart(null);
+        }
 
         protected override void OnStart(string[] args)
         {
@@ -60,12 +61,16 @@ namespace TestService
 
         private void SelectRecord()
         {
-            string csv_file_path = "";
-            string csvName = "";
             Guid Id = new Guid();
+            string csv_file_path = "";
+            string csvName = "";       
+            var statusTod = "6E743405-B8E3-EB11-A085-2CF05D6C5D5B";
+            var statusDone = "737BCB12-B8E3-EB11-A085-2CF05D6C5D5B";
+         // var statusError = "727BCB12-B8E3-EB11-A085-2CF05D6C5D5B";          
             var data = (from t1 in db.ImportProcesses
-                        join t2 in db.ImportFileNames on t1.FileId equals t2.Id
-                        select new { t2.FileName, t1.FilePath, t1.OperatorId, t1.OperatotLocationId, t1.StatusId, t1.ProcessId, t1.ErrorDescription }).ToList().Where(x => x.StatusId == 1);
+                        join t2 in db.ImportFileTypes on t1.FileTypeId equals t2.Id
+                        select new { t2.FileName, t1.FilePath, t1.OperatorId, t1.OperatotLocationId, t1.FileStatusId, t1.ProcessId, t1.ErrorDescription }).
+                        Where(x => x.FileStatusId == new Guid(statusTod)  && x.FilePath !=null).ToList();
             foreach (var item in data)
             {
                 try
@@ -79,6 +84,7 @@ namespace TestService
                         InsertDataIntoSQLServerUsingSQLBulkCopy(csvData, csvName);
                         var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
                         errorDescription.ErrorDescription = "Done";
+                        errorDescription.FileStatusId = new Guid(statusDone);
                         db.Entry(errorDescription).State = EntityState.Modified;
                         db.SaveChanges();
                     }
@@ -87,7 +93,8 @@ namespace TestService
                 catch (Exception ex)
                 {
                     var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
-                    errorDescription.ErrorDescription = ex.Message;
+                    errorDescription.ErrorDescription = ex.Message;                  
+                   // errorDescription.FileStatusId = new Guid(statusError);
                     db.Entry(errorDescription).State = EntityState.Modified;
                     db.SaveChanges();
                 }
@@ -103,7 +110,8 @@ namespace TestService
                 {
                     csvReader.SetDelimiters(new string[] { "," });
                     csvReader.HasFieldsEnclosedInQuotes = true;
-                    string[] colFields = csvReader.ReadFields();
+                    string[] colFields = csvReader.ReadFields();               
+
                     foreach (string column in colFields)
                     {
                         DataColumn datecolumn = new DataColumn(column);

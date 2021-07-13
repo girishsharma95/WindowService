@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GhostlyLiveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ImportFileType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FileName" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ImportProcess">
+    <Key>
+      <PropertyRef Name="ProcessId" />
+    </Key>
+    <Property Name="ProcessId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="OperatorId" Type="uniqueidentifier" />
+    <Property Name="OperatotLocationId" Type="uniqueidentifier" />
+    <Property Name="FileTypeId" Type="uniqueidentifier" />
+    <Property Name="FilePath" Type="nvarchar" MaxLength="400" />
+    <Property Name="FileStatusId" Type="uniqueidentifier" />
+    <Property Name="DateProcessed" Type="date" />
+    <Property Name="ErrorDescription" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="ImportStatus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Operators">
+    <Key>
+      <PropertyRef Name="OperatorId" />
+    </Key>
+    <Property Name="OperatorId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OperatorNameFirm" Type="varchar" MaxLength="50" />
+    <Property Name="OperatorVATid" Type="varchar" MaxLength="50" />
+    <Property Name="OperatorMainContact" Type="varchar" MaxLength="50" />
+    <Property Name="OperatorEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="OperatorTelephone" Type="varchar" MaxLength="50" />
+    <Property Name="OperatorCity" Type="varchar" MaxLength="50" />
+    <Property Name="OperatorAddressLine1" Type="varchar" MaxLength="50" />
+    <Property Name="OperatorAddressLine2" Type="varchar" MaxLength="50" />
+    <Property Name="OperatorCountry" Type="varchar" MaxLength="50" />
+    <Property Name="OperatorStateOrProvince" Type="varchar" MaxLength="50" />
+    <Property Name="OperatorRegion" Type="varchar" MaxLength="10" />
+    <Property Name="OperatorCategory" Type="int" />
+    <Property Name="OperatorSubCategory" Type="int" />
+    <Property Name="OperatorGhostlyClassification" Type="int" />
+    <Property Name="StorageCapacityLiquids" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="StorageCapacityVolume" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="StorageUsedCapacityLiquids" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="StorageUsedCapacityVolume" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="member_id" Type="uniqueidentifier" />
+    <Property Name="date_creation" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="created_by" Type="uniqueidentifier" />
+    <Property Name="modified_by" Type="uniqueidentifier" />
+    <Property Name="date_modified" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="Operators_Locations">
+    <Key>
+      <PropertyRef Name="OperatorLocationId" />
+    </Key>
+    <Property Name="OperatorLocationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OperatorId" Type="uniqueidentifier" />
+    <Property Name="LocationName" Type="varchar" MaxLength="128" />
+    <Property Name="LocationVATid" Type="varchar" MaxLength="50" />
+    <Property Name="LocationMainContact" Type="varchar" MaxLength="128" />
+    <Property Name="LocationEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="LocationTelephone" Type="varchar" MaxLength="50" />
+    <Property Name="LocationCity" Type="varchar" MaxLength="128" />
+    <Property Name="LocationAddressLine1" Type="varchar" MaxLength="128" />
+    <Property Name="LocationAddressLine2" Type="varchar" MaxLength="128" />
+    <Property Name="LocationZIP" Type="varchar" MaxLength="15" />
+    <Property Name="LocationCountry" Type="varchar" MaxLength="50" />
+    <Property Name="LocationStateOrProvince" Type="varchar" MaxLength="50" />
+    <Property Name="LocationRegion" Type="varchar" MaxLength="10" />
+    <Property Name="LocationCategory" Type="int" />
+    <Property Name="LocationSubCategory" Type="int" />
+    <Property Name="LocationGhostlyClassification" Type="int" />
+    <Property Name="LocationStorageCapacityLiquids" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="LocationStorageCapacityVolume" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="LocationStorageUsedCapacityLiquids" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="LocationStorageUsedCapacityVolume" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="date_creation" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="created_by" Type="uniqueidentifier" />
+    <Property Name="modified_by" Type="uniqueidentifier" />
+    <Property Name="date_modified" Type="datetime2" Precision="7" />
+  </EntityType>
+  <Association Name="FK__ImportPro__FileS__2A01329B">
+    <End Role="ImportStatus" Type="Self.ImportStatus" Multiplicity="0..1" />
+    <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImportStatus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ImportProcess">
+        <PropertyRef Name="FileStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportPro__FileS__2AF556D4">
+    <End Role="ImportStatus" Type="Self.ImportStatus" Multiplicity="0..1" />
+    <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImportStatus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ImportProcess">
+        <PropertyRef Name="FileStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportPro__FileT__290D0E62">
+    <End Role="ImportFileType" Type="Self.ImportFileType" Multiplicity="0..1" />
+    <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImportFileType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ImportProcess">
+        <PropertyRef Name="FileTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportPro__FileT__2BE97B0D">
+    <End Role="ImportFileType" Type="Self.ImportFileType" Multiplicity="0..1" />
+    <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImportFileType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ImportProcess">
+        <PropertyRef Name="FileTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportPro__FileT__2EC5E7B8">
+    <End Role="ImportFileType" Type="Self.ImportFileType" Multiplicity="0..1" />
+    <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImportFileType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ImportProcess">
+        <PropertyRef Name="FileTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportPro__Opera__2724C5F0">
+    <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
+    <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operators">
+        <PropertyRef Name="OperatorId" />
+      </Principal>
+      <Dependent Role="ImportProcess">
+        <PropertyRef Name="OperatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportPro__Opera__2818EA29">
+    <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+    <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operators_Locations">
+        <PropertyRef Name="OperatorLocationId" />
+      </Principal>
+      <Dependent Role="ImportProcess">
+        <PropertyRef Name="OperatotLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportPro__Opera__2CDD9F46">
+    <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
+    <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operators">
+        <PropertyRef Name="OperatorId" />
+      </Principal>
+      <Dependent Role="ImportProcess">
+        <PropertyRef Name="OperatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportPro__Opera__2DD1C37F">
+    <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="0..1" />
+    <End Role="ImportProcess" Type="Self.ImportProcess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operators_Locations">
+        <PropertyRef Name="OperatorLocationId" />
+      </Principal>
+      <Dependent Role="ImportProcess">
+        <PropertyRef Name="OperatotLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Operators_Locations_Operators_OperatorId">
+    <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
+    <End Role="Operators_Locations" Type="Self.Operators_Locations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operators">
+        <PropertyRef Name="OperatorId" />
+      </Principal>
+      <Dependent Role="Operators_Locations">
+        <PropertyRef Name="OperatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GhostlyLiveModelStoreContainer">
+    <EntitySet Name="ImportFileType" EntityType="Self.ImportFileType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImportProcess" EntityType="Self.ImportProcess" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImportStatus" EntityType="Self.ImportStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Operators" EntityType="Self.Operators" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Operators_Locations" EntityType="Self.Operators_Locations" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ImportPro__FileS__2A01329B" Association="Self.FK__ImportPro__FileS__2A01329B">
+      <End Role="ImportStatus" EntitySet="ImportStatus" />
+      <End Role="ImportProcess" EntitySet="ImportProcess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportPro__FileS__2AF556D4" Association="Self.FK__ImportPro__FileS__2AF556D4">
+      <End Role="ImportStatus" EntitySet="ImportStatus" />
+      <End Role="ImportProcess" EntitySet="ImportProcess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportPro__FileT__290D0E62" Association="Self.FK__ImportPro__FileT__290D0E62">
+      <End Role="ImportFileType" EntitySet="ImportFileType" />
+      <End Role="ImportProcess" EntitySet="ImportProcess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportPro__FileT__2BE97B0D" Association="Self.FK__ImportPro__FileT__2BE97B0D">
+      <End Role="ImportFileType" EntitySet="ImportFileType" />
+      <End Role="ImportProcess" EntitySet="ImportProcess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportPro__FileT__2EC5E7B8" Association="Self.FK__ImportPro__FileT__2EC5E7B8">
+      <End Role="ImportFileType" EntitySet="ImportFileType" />
+      <End Role="ImportProcess" EntitySet="ImportProcess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportPro__Opera__2724C5F0" Association="Self.FK__ImportPro__Opera__2724C5F0">
+      <End Role="Operators" EntitySet="Operators" />
+      <End Role="ImportProcess" EntitySet="ImportProcess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportPro__Opera__2818EA29" Association="Self.FK__ImportPro__Opera__2818EA29">
+      <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+      <End Role="ImportProcess" EntitySet="ImportProcess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportPro__Opera__2CDD9F46" Association="Self.FK__ImportPro__Opera__2CDD9F46">
+      <End Role="Operators" EntitySet="Operators" />
+      <End Role="ImportProcess" EntitySet="ImportProcess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportPro__Opera__2DD1C37F" Association="Self.FK__ImportPro__Opera__2DD1C37F">
+      <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+      <End Role="ImportProcess" EntitySet="ImportProcess" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operators_Locations_Operators_OperatorId" Association="Self.FK_Operators_Locations_Operators_OperatorId">
+      <End Role="Operators" EntitySet="Operators" />
+      <End Role="Operators_Locations" EntitySet="Operators_Locations" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

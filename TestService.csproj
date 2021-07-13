@@ -80,35 +80,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImportFileName.cs">
-      <DependentUpon>processModel.tt</DependentUpon>
+    <Compile Include="ImportFileType.cs">
+      <DependentUpon>TempModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ImportProcess.cs">
-      <DependentUpon>processModel.tt</DependentUpon>
+      <DependentUpon>TempModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ImportStatu.cs">
-      <DependentUpon>processModel.tt</DependentUpon>
+      <DependentUpon>TempModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Operator.cs">
-      <DependentUpon>processModel.tt</DependentUpon>
+      <DependentUpon>TempModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Operators_Locations.cs">
-      <DependentUpon>processModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="processModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>processModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="processModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>processModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="processModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>processModel.edmx</DependentUpon>
+      <DependentUpon>TempModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -124,16 +109,31 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TempModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TempModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TempModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TempModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TempModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TempModel.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="processModel.edmx">
+    <EntityDeploy Include="TempModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>processModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>TempModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="processModel.edmx.diagram">
-      <DependentUpon>processModel.edmx</DependentUpon>
+    <None Include="TempModel.edmx.diagram">
+      <DependentUpon>TempModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -145,15 +145,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="processModel.Context.tt">
+    <Content Include="TempModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>processModel.edmx</DependentUpon>
-      <LastGenOutput>processModel.Context.cs</LastGenOutput>
+      <DependentUpon>TempModel.edmx</DependentUpon>
+      <LastGenOutput>TempModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="processModel.tt">
+    <Content Include="TempModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>processModel.edmx</DependentUpon>
-      <LastGenOutput>processModel.cs</LastGenOutput>
+      <DependentUpon>TempModel.edmx</DependentUpon>
+      <LastGenOutput>TempModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

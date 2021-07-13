@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="620498df9e7a45adbbf043dad855f78a" Name="Diagram1">
+        <EntityTypeShape EntityType="GhostlyLiveModel.ImportProcess" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GhostlyLiveModel.ImportStatu" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GhostlyLiveModel.Operator" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GhostlyLiveModel.Operators_Locations" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__FileS__2A01329B" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__FileS__2AF556D4" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__FileS__30AE302A" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__FileS__347EC10E" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__2724C5F0" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__2818EA29" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__2CDD9F46" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__2DD1C37F" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__3296789C" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__338A9CD5" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__36670980" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK__ImportPro__Opera__375B2DB9" ManuallyRouted="false" />
+        <AssociationConnector Association="GhostlyLiveModel.FK_Operators_Locations_Operators_OperatorId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

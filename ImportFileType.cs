@@ -12,15 +12,15 @@ namespace TestService
     using System;
     using System.Collections.Generic;
     
-    public partial class ImportFileName
+    public partial class ImportFileType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ImportFileName()
+        public ImportFileType()
         {
             this.ImportProcesses = new HashSet<ImportProcess>();
         }
     
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string FileName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

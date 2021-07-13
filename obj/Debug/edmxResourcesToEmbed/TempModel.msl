@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GhostlyLiveModelStoreContainer" CdmEntityContainer="GhostlyLiveEntities">
+    <EntitySetMapping Name="ImportFileTypes">
+      <EntityTypeMapping TypeName="GhostlyLiveModel.ImportFileType">
+        <MappingFragment StoreEntitySet="ImportFileType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImportProcesses">
+      <EntityTypeMapping TypeName="GhostlyLiveModel.ImportProcess">
+        <MappingFragment StoreEntitySet="ImportProcess">
+          <ScalarProperty Name="ProcessId" ColumnName="ProcessId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+          <ScalarProperty Name="OperatotLocationId" ColumnName="OperatotLocationId" />
+          <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileStatusId" ColumnName="FileStatusId" />
+          <ScalarProperty Name="DateProcessed" ColumnName="DateProcessed" />
+          <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImportStatus">
+      <EntityTypeMapping TypeName="GhostlyLiveModel.ImportStatu">
+        <MappingFragment StoreEntitySet="ImportStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operators">
+      <EntityTypeMapping TypeName="GhostlyLiveModel.Operator">
+        <MappingFragment StoreEntitySet="Operators">
+          <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+          <ScalarProperty Name="OperatorNameFirm" ColumnName="OperatorNameFirm" />
+          <ScalarProperty Name="OperatorVATid" ColumnName="OperatorVATid" />
+          <ScalarProperty Name="OperatorMainContact" ColumnName="OperatorMainContact" />
+          <ScalarProperty Name="OperatorEmail" ColumnName="OperatorEmail" />
+          <ScalarProperty Name="OperatorTelephone" ColumnName="OperatorTelephone" />
+          <ScalarProperty Name="OperatorCity" ColumnName="OperatorCity" />
+          <ScalarProperty Name="OperatorAddressLine1" ColumnName="OperatorAddressLine1" />
+          <ScalarProperty Name="OperatorAddressLine2" ColumnName="OperatorAddressLine2" />
+          <ScalarProperty Name="OperatorCountry" ColumnName="OperatorCountry" />
+          <ScalarProperty Name="OperatorStateOrProvince" ColumnName="OperatorStateOrProvince" />
+          <ScalarProperty Name="OperatorRegion" ColumnName="OperatorRegion" />
+          <ScalarProperty Name="OperatorCategory" ColumnName="OperatorCategory" />
+          <ScalarProperty Name="OperatorSubCategory" ColumnName="OperatorSubCategory" />
+          <ScalarProperty Name="OperatorGhostlyClassification" ColumnName="OperatorGhostlyClassification" />
+          <ScalarProperty Name="StorageCapacityLiquids" ColumnName="StorageCapacityLiquids" />
+          <ScalarProperty Name="StorageCapacityVolume" ColumnName="StorageCapacityVolume" />
+          <ScalarProperty Name="StorageUsedCapacityLiquids" ColumnName="StorageUsedCapacityLiquids" />
+          <ScalarProperty Name="StorageUsedCapacityVolume" ColumnName="StorageUsedCapacityVolume" />
+          <ScalarProperty Name="member_id" ColumnName="member_id" />
+          <ScalarProperty Name="date_creation" ColumnName="date_creation" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operators_Locations">
+      <EntityTypeMapping TypeName="GhostlyLiveModel.Operators_Locations">
+        <MappingFragment StoreEntitySet="Operators_Locations">
+          <ScalarProperty Name="OperatorLocationId" ColumnName="OperatorLocationId" />
+          <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="LocationVATid" ColumnName="LocationVATid" />
+          <ScalarProperty Name="LocationMainContact" ColumnName="LocationMainContact" />
+          <ScalarProperty Name="LocationEmail" ColumnName="LocationEmail" />
+          <ScalarProperty Name="LocationTelephone" ColumnName="LocationTelephone" />
+          <ScalarProperty Name="LocationCity" ColumnName="LocationCity" />
+          <ScalarProperty Name="LocationAddressLine1" ColumnName="LocationAddressLine1" />
+          <ScalarProperty Name="LocationAddressLine2" ColumnName="LocationAddressLine2" />
+          <ScalarProperty Name="LocationZIP" ColumnName="LocationZIP" />
+          <ScalarProperty Name="LocationCountry" ColumnName="LocationCountry" />
+          <ScalarProperty Name="LocationStateOrProvince" ColumnName="LocationStateOrProvince" />
+          <ScalarProperty Name="LocationRegion" ColumnName="LocationRegion" />
+          <ScalarProperty Name="LocationCategory" ColumnName="LocationCategory" />
+          <ScalarProperty Name="LocationSubCategory" ColumnName="LocationSubCategory" />
+          <ScalarProperty Name="LocationGhostlyClassification" ColumnName="LocationGhostlyClassification" />
+          <ScalarProperty Name="LocationStorageCapacityLiquids" ColumnName="LocationStorageCapacityLiquids" />
+          <ScalarProperty Name="LocationStorageCapacityVolume" ColumnName="LocationStorageCapacityVolume" />
+          <ScalarProperty Name="LocationStorageUsedCapacityLiquids" ColumnName="LocationStorageUsedCapacityLiquids" />
+          <ScalarProperty Name="LocationStorageUsedCapacityVolume" ColumnName="LocationStorageUsedCapacityVolume" />
+          <ScalarProperty Name="date_creation" ColumnName="date_creation" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

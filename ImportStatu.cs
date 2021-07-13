@@ -20,8 +20,8 @@ namespace TestService
             this.ImportProcesses = new HashSet<ImportProcess>();
         }
     
-        public int Id { get; set; }
-        public string Status { get; set; }
+        public System.Guid Id { get; set; }
+        public string status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ImportProcess> ImportProcesses { get; set; }
