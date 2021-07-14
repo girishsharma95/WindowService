@@ -85,6 +85,7 @@ namespace TestService
                         var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
                         errorDescription.ErrorDescription = "Done";
                         errorDescription.FileStatusId = statusDone.Id;
+                        errorDescription.DateProcessed = DateTime.Now.Date;
                         db.Entry(errorDescription).State = EntityState.Modified;
                         db.SaveChanges();
                     }
