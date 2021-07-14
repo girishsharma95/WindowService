@@ -64,13 +64,13 @@ namespace TestService
             Guid Id = new Guid();
             string csv_file_path = "";
             string csvName = "";       
-            var statusTodo = db.ImportStatus.Where(x => x.status == "To do").ToArray();
-            var statusDone = db.ImportStatus.Where(x => x.status == "Done").ToArray();
-            var statusError = db.ImportStatus.Where(x => x.status == "Error").ToArray();          
+            var statusTodo = db.ImportStatus.Where(x => x.status == "To do").FirstOrDefault();
+            var statusDone = db.ImportStatus.Where(x => x.status == "Done").FirstOrDefault();
+            var statusError = db.ImportStatus.Where(x => x.status == "Error").FirstOrDefault();          
             var data = (from t1 in db.ImportProcesses
                         join t2 in db.ImportFileTypes on t1.FileTypeId equals t2.Id
                         select new { t2.FileName, t1.FilePath, t1.OperatorId, t1.OperatotLocationId, t1.FileStatusId, t1.ProcessId, t1.ErrorDescription }).
-                        Where(x => x.FileStatusId == statusTodo.FirstOrDefault().Id  && x.FilePath !=null).ToList();
+                        Where(x => x.FileStatusId == statusTodo.Id  && x.FilePath !=null).ToList();
             foreach (var item in data)
             {
                 try
@@ -84,7 +84,7 @@ namespace TestService
                         InsertDataIntoSQLServerUsingSQLBulkCopy(csvData, csvName);
                         var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
                         errorDescription.ErrorDescription = "Done";
-                        errorDescription.FileStatusId = statusDone.FirstOrDefault().Id;
+                        errorDescription.FileStatusId = statusDone.Id;
                         db.Entry(errorDescription).State = EntityState.Modified;
                         db.SaveChanges();
                     }
@@ -94,7 +94,7 @@ namespace TestService
                 {
                     var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
                     errorDescription.ErrorDescription = ex.Message;                  
-                    errorDescription.FileStatusId = statusError.FirstOrDefault().Id;
+                    errorDescription.FileStatusId = statusError.Id;
                     db.Entry(errorDescription).State = EntityState.Modified;
                     db.SaveChanges();
                 }
