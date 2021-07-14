@@ -64,13 +64,13 @@ namespace TestService
             Guid Id = new Guid();
             string csv_file_path = "";
             string csvName = "";       
-            var statusTod = "6E743405-B8E3-EB11-A085-2CF05D6C5D5B";
-            var statusDone = "737BCB12-B8E3-EB11-A085-2CF05D6C5D5B";
+            var statusTodo = db.ImportStatus.Where(x => x.status == "To do").ToArray();
+            var statusDone = db.ImportStatus.Where(x => x.status == "Done").ToArray();
          // var statusError = "727BCB12-B8E3-EB11-A085-2CF05D6C5D5B";          
             var data = (from t1 in db.ImportProcesses
                         join t2 in db.ImportFileTypes on t1.FileTypeId equals t2.Id
                         select new { t2.FileName, t1.FilePath, t1.OperatorId, t1.OperatotLocationId, t1.FileStatusId, t1.ProcessId, t1.ErrorDescription }).
-                        Where(x => x.FileStatusId == new Guid(statusTod)  && x.FilePath !=null).ToList();
+                        Where(x => x.FileStatusId == statusTodo.FirstOrDefault().Id  && x.FilePath !=null).ToList();
             foreach (var item in data)
             {
                 try
@@ -84,7 +84,7 @@ namespace TestService
                         InsertDataIntoSQLServerUsingSQLBulkCopy(csvData, csvName);
                         var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
                         errorDescription.ErrorDescription = "Done";
-                        errorDescription.FileStatusId = new Guid(statusDone);
+                        errorDescription.FileStatusId = statusDone.FirstOrDefault().Id;
                         db.Entry(errorDescription).State = EntityState.Modified;
                         db.SaveChanges();
                     }
