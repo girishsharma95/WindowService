@@ -66,7 +66,7 @@ namespace TestService
             string csvName = "";       
             var statusTodo = db.ImportStatus.Where(x => x.status == "To do").ToArray();
             var statusDone = db.ImportStatus.Where(x => x.status == "Done").ToArray();
-         // var statusError = "727BCB12-B8E3-EB11-A085-2CF05D6C5D5B";          
+            var statusError = db.ImportStatus.Where(x => x.status == "Error").ToArray();          
             var data = (from t1 in db.ImportProcesses
                         join t2 in db.ImportFileTypes on t1.FileTypeId equals t2.Id
                         select new { t2.FileName, t1.FilePath, t1.OperatorId, t1.OperatotLocationId, t1.FileStatusId, t1.ProcessId, t1.ErrorDescription }).
@@ -94,7 +94,7 @@ namespace TestService
                 {
                     var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
                     errorDescription.ErrorDescription = ex.Message;                  
-                   // errorDescription.FileStatusId = new Guid(statusError);
+                    errorDescription.FileStatusId = statusError.FirstOrDefault().Id;
                     db.Entry(errorDescription).State = EntityState.Modified;
                     db.SaveChanges();
                 }
