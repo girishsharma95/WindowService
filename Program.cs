@@ -19,7 +19,7 @@ namespace TestService
             {
                 new Service1()
             };
-            //ServiceBase.Run(ServicesToRun);
+            ServiceBase.Run(ServicesToRun);
 //#if DEBUG
            // Service1 myService = new Service1();
           //  myService.OnDebug();
