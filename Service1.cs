@@ -29,10 +29,10 @@ namespace TestService
         {
             InitializeComponent();
         }
-        public void OnDebug()
-        {
-            OnStart(null);
-        }
+       // public void OnDebug()
+       // {
+       //     OnStart(null);
+        //}
 
         protected override void OnStart(string[] args)
         {
