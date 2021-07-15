@@ -66,7 +66,8 @@ namespace TestService
             string csvName = "";       
             var statusTodo = db.ImportStatus.Where(x => x.status == "To do").FirstOrDefault();
             var statusDone = db.ImportStatus.Where(x => x.status == "Done").FirstOrDefault();
-            var statusError = db.ImportStatus.Where(x => x.status == "Error").FirstOrDefault();          
+            var statusError = db.ImportStatus.Where(x => x.status == "Error").FirstOrDefault(); 
+            var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
             var data = (from t1 in db.ImportProcesses
                         join t2 in db.ImportFileTypes on t1.FileTypeId equals t2.Id
                         select new { t2.FileName, t1.FilePath, t1.OperatorId, t1.OperatotLocationId, t1.FileStatusId, t1.ProcessId, t1.ErrorDescription }).
@@ -81,8 +82,7 @@ namespace TestService
                     if (!string.IsNullOrEmpty(csv_file_path))
                     {
                         DataTable csvData = GetDataTabletFromCSVFile(csv_file_path);
-                        InsertDataIntoSQLServerUsingSQLBulkCopy(csvData, csvName);
-                        var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
+                        InsertDataIntoSQLServerUsingSQLBulkCopy(csvData, csvName);                        
                         errorDescription.ErrorDescription = "Done";
                         errorDescription.FileStatusId = statusDone.Id;
                         errorDescription.DateProcessed = DateTime.Now.Date;
@@ -92,8 +92,7 @@ namespace TestService
 
                 }
                 catch (Exception ex)
-                {
-                    var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
+                {                   
                     errorDescription.ErrorDescription = ex.Message;                  
                     errorDescription.FileStatusId = statusError.Id;
                     errorDescription.DateProcessed = DateTime.Now.Date;
