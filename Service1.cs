@@ -162,9 +162,7 @@ namespace TestService
         }
 
         static void InsertDataIntoSQLServerUsingSQLBulkCopy(DataTable csvFileData,string csvName)
-        {
-            try
-            {
+        {            
                 using (SqlConnection dbConnection = new SqlConnection(conn))
                 {
                     dbConnection.Open();
@@ -178,9 +176,8 @@ namespace TestService
                             s.ColumnMappings.Add(column.ToString(), column.ToString());
                         s.WriteToServer(csvFileData);
                     }
-                }
-            }            
-            
+                }  
+                
         }
 
     }
