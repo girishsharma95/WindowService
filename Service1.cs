@@ -29,9 +29,9 @@ namespace TestService
         {
             InitializeComponent();
         }
-       // public void OnDebug()
-       // {
-       //     OnStart(null);
+        //public void OnDebug()
+        //{
+        //    OnStart(null);
         //}
 
         protected override void OnStart(string[] args)
@@ -63,11 +63,13 @@ namespace TestService
         {
             Guid Id = new Guid();
             string csv_file_path = "";
-            string csvName = "";       
+            string csvName = "";
+            Guid ? OperatorLocationId = new Guid();
+            Guid? OperatorId = new Guid();
             var statusTodo = db.ImportStatus.Where(x => x.status == "To do").FirstOrDefault();
             var statusDone = db.ImportStatus.Where(x => x.status == "Done").FirstOrDefault();
-            var statusError = db.ImportStatus.Where(x => x.status == "Error").FirstOrDefault(); 
-            var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
+            var statusError = db.ImportStatus.Where(x => x.status == "Error").FirstOrDefault();
+            
             var data = (from t1 in db.ImportProcesses
                         join t2 in db.ImportFileTypes on t1.FileTypeId equals t2.Id
                         select new { t2.FileName, t1.FilePath, t1.OperatorId, t1.OperatotLocationId, t1.FileStatusId, t1.ProcessId, t1.ErrorDescription }).
@@ -79,20 +81,31 @@ namespace TestService
                     csv_file_path = item.FilePath;
                     csvName = item.FileName;
                     Id = item.ProcessId;
+                    OperatorLocationId = item.OperatotLocationId;
+                    OperatorId = item.OperatorId;
+
+
                     if (!string.IsNullOrEmpty(csv_file_path))
                     {
-                        DataTable csvData = GetDataTabletFromCSVFile(csv_file_path);
-                        InsertDataIntoSQLServerUsingSQLBulkCopy(csvData, csvName);                        
+                        var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
+                        DataTable csvData = GetDataTabletFromCSVFile(csv_file_path, OperatorLocationId, OperatorId);
+                        InsertDataIntoSQLServerUsingSQLBulkCopy(csvData, csvName);
                         errorDescription.ErrorDescription = "Done";
                         errorDescription.FileStatusId = statusDone.Id;
                         errorDescription.DateProcessed = DateTime.Now.Date;
-                        db.Entry(errorDescription).State = EntityState.Modified;
+                        db.Entry(errorDescription).State = EntityState.Modified;                      
+
+
                         db.SaveChanges();
+
+
+
                     }
 
                 }
                 catch (Exception ex)
-                {                   
+                {
+                    var errorDescription = db.ImportProcesses.Where(x => x.ProcessId == Id).FirstOrDefault();
                     errorDescription.ErrorDescription = ex.Message;                  
                     errorDescription.FileStatusId = statusError.Id;
                     errorDescription.DateProcessed = DateTime.Now.Date;
@@ -102,7 +115,7 @@ namespace TestService
             }
         }
 
-        private static DataTable GetDataTabletFromCSVFile(string csv_file_path)
+        private static DataTable GetDataTabletFromCSVFile(string csv_file_path,Guid ? OperatorLocationId, Guid? OperatorId)
         {
             DataTable csvData = new DataTable();
             try
@@ -111,8 +124,11 @@ namespace TestService
                 {
                     csvReader.SetDelimiters(new string[] { "," });
                     csvReader.HasFieldsEnclosedInQuotes = true;
-                    string[] colFields = csvReader.ReadFields();               
-
+                    string[] colFields = csvReader.ReadFields();
+                    var tempListCol = colFields.ToList();
+                    tempListCol.Add("OperatorLocationId");
+                    tempListCol.Add("OperatorId");
+                    colFields = tempListCol.ToArray();                 
                     foreach (string column in colFields)
                     {
                         DataColumn datecolumn = new DataColumn(column);
@@ -122,6 +138,10 @@ namespace TestService
                     while (!csvReader.EndOfData)
                     {
                         string[] fieldData = csvReader.ReadFields();
+                        var tempListField = fieldData.ToList();
+                        tempListField.Add(OperatorLocationId.ToString());
+                        tempListField.Add(OperatorId.ToString());
+                        fieldData = tempListField.ToArray();
                         //Making empty value as null
                         for (int i = 0; i < fieldData.Length; i++)
                         {
@@ -143,21 +163,24 @@ namespace TestService
 
         static void InsertDataIntoSQLServerUsingSQLBulkCopy(DataTable csvFileData,string csvName)
         {
-
-            using (SqlConnection dbConnection = new SqlConnection(conn))
+            try
             {
-                dbConnection.Open();
-
-                var tablename = csvName;
-
-                using (SqlBulkCopy s = new SqlBulkCopy(dbConnection))
+                using (SqlConnection dbConnection = new SqlConnection(conn))
                 {
-                    s.DestinationTableName = tablename;                    
-                    foreach (var column in csvFileData.Columns)
-                        s.ColumnMappings.Add(column.ToString(), column.ToString());
-                    s.WriteToServer(csvFileData);
+                    dbConnection.Open();
+
+                    var tablename = csvName;
+
+                    using (SqlBulkCopy s = new SqlBulkCopy(dbConnection))
+                    {
+                        s.DestinationTableName = tablename;
+                        foreach (var column in csvFileData.Columns)
+                            s.ColumnMappings.Add(column.ToString(), column.ToString());
+                        s.WriteToServer(csvFileData);
+                    }
                 }
-            }
+            }            
+            
         }
 
     }
