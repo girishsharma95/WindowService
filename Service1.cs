@@ -95,13 +95,8 @@ namespace TestService
                         errorDescription.DateProcessed = DateTime.Now.Date;
                         db.Entry(errorDescription).State = EntityState.Modified;                      
 
-
                         db.SaveChanges();
-
-
-
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -145,6 +140,10 @@ namespace TestService
                         //Making empty value as null
                         for (int i = 0; i < fieldData.Length; i++)
                         {
+                            if (fieldData[i].StartsWith("$"))
+                            {
+                                fieldData[i] = fieldData[i].Replace("$", "");
+                            }
                             if (fieldData[i] == "")
                             {
                                 fieldData[i] = null;
@@ -177,12 +176,6 @@ namespace TestService
                         s.WriteToServer(csvFileData);
                     }
                 }  
-                
         }
-
     }
-
 }
-
-
-
